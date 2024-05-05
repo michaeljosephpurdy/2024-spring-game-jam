@@ -1,0 +1,3 @@
+[submodule "plugins/love2d"]
+	path = plugins/love2d
+	url = https://github.com/lovejs/lovejs-framework.git
