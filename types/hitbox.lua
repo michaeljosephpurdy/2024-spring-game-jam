@@ -1,0 +1,4 @@
+---@meta
+---@class Hitbox
+---@field width number
+---@field height number

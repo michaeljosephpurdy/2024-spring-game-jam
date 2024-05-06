@@ -5,11 +5,14 @@
 ---@field verticies table
 ---@field angle number
 ---@field last_action PlayerActions
+---@field hitbox Hitbox
+---@field collisions_enabled boolean
 local Player = class('Player')
 
 ---@enum PlayerActions
 local PlayerActions = {
   NONE = 'NONE',
+  JUMP = 'JUMP',
   FLIP = 'FLIP',
   DECREMENT = 'DECREMENT',
   INCREMENT = 'INCREMENT',
@@ -30,11 +33,14 @@ local UPPER_SIDE_LIMIT = #SIDES
 
 function Player:initialize()
   self.x, self.y = 40, 40
+  self.velocity_x, self.velocity_y = 0, 0
   self.controllable = true
   self.camera_follow = true
   self.sides = 3
   self.verticies = SIDES[self.sides]
   self.angle = 0
+  self.hitbox = { width = 100, height = 100 }
+  self.collisions_enabled = true
 end
 
 ---@private
@@ -60,6 +66,15 @@ function Player:flip()
   end
   self.last_action = 'FLIP'
   -- flip gravity
+end
+
+--- jumps
+--- if user didn't just take that action
+function Player:jump()
+  if self.last_action == 'JUMP' then
+    return
+  end
+  self.last_action = 'JUMP'
 end
 
 --- decrements count of sides

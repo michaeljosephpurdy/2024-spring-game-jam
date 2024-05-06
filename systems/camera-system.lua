@@ -6,7 +6,7 @@ local function lerp(a, b, t)
   return a + (b - a) * t
 end
 
-function CameraSystem:init()
+function CameraSystem:initialize(props)
   self.push = require('plugins.push')
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   self.push:setupScreen(GAME_WIDTH, GAME_HEIGHT, windowWidth, windowHeight, {

@@ -7,11 +7,18 @@ PlayerInputSystem.is_update_system = true
 ---@param player Player
 ---@param dt number
 function PlayerInputSystem:process(player, dt)
-  local right = love.keyboard.isDown('right') or love.keyboard.isDown('x')
-  local left = love.keyboard.isDown('left') or love.keyboard.isDown('z')
+  local up = love.keyboard.isDown('up') or love.keyboard.isDown('w')
+  local down = love.keyboard.isDown('down') or love.keyboard.isDown('s')
+  local left = love.keyboard.isDown('left') or love.keyboard.isDown('a') or love.keyboard.isDown('z')
+  local right = love.keyboard.isDown('right') or love.keyboard.isDown('d') or love.keyboard.isDown('x')
   local both = left and right
 
-  if both then
+  if up then
+    player:jump()
+    return
+  end
+
+  if down then
     player:flip()
     return
   end
