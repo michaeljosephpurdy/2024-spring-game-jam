@@ -29,7 +29,7 @@ function CameraSystem:postWrap(dt)
 end
 
 function CameraSystem:process(e, dt)
-  love.graphics.translate(-e.x, -e.y + GAME_HEIGHT / 2)
+  love.graphics.translate(-e.x + GAME_WIDTH / 4, 0)
   love.graphics.print('2024 spring game jam', 20, 20)
 end
 

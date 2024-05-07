@@ -9,6 +9,11 @@ local function collision_filter(e1, e2)
   if not e1.class or not e2.class then
     return 'cross'
   end
+
+  if e1.class ~= Player then
+    return
+  end
+
   local player = e1 --[[@as Player]]
 
   if e2.class == SolidPlatform then
@@ -17,11 +22,20 @@ local function collision_filter(e1, e2)
 
   if e2.class == SideCheckingGate then
     local other = e2 --[[@as SideCheckingGate]]
+    if other.crossed then
+      return 'cross'
+    end
     if other.sides == player.sides then
+      other.crossed = true
       return 'cross'
     else
       return 'slide'
     end
+  end
+
+  if e2.class == EntityKiller then
+    tiny_world:removeEntity(player)
+    tiny_world:addEntity({})
   end
 
   --return 'slide'

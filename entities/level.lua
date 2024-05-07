@@ -24,16 +24,16 @@ local POSSIBLE_VARIANTS = {{
       '              ',
       '              ',
       '              ',
-      '     #        ',
+      '     3        ',
       'XXXXXXXXXXXXXX'},
  },{
  map={'XXXXXXXXXXXXXX',
       '              ',
       '              ',
       '              ',
-      '              ',
-      '              ',
-      'XXXXXX  XXXXXX'},
+      '     X        ',
+      '     4        ',
+      'XXXXXXXXXXXXXX'},
  },
 }
 -- stylua: ignore end

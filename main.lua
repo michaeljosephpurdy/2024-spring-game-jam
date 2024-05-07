@@ -11,7 +11,8 @@ SYSTEMS_IN_ORDER = {
   require('systems.level-spawning-system'),
   require('systems.collision-registration-system'),
   require('systems.cooldown-system'),
-  require('systems.horizontal-movement-system'),
+  require('systems.left-movement-system'),
+  require('systems.right-movement-system'),
   require('systems.player-input-system'),
   require('systems.gravity-system'),
   require('systems.collision-detection-system'),
@@ -19,6 +20,7 @@ SYSTEMS_IN_ORDER = {
   require('systems.camera-system'),
   require('systems.sprite-drawing-system'),
   require('systems.entity-cleanup-system'),
+  require('systems.debug-overlay-system'),
 }
 
 PALETTE = {
@@ -44,11 +46,17 @@ function love.load()
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   love.graphics.setDefaultFilter('nearest', 'nearest')
   love.graphics.setBackgroundColor(PALETTE.LIGHTEST)
+
+  -- Import all entities
+  -- this is happening in love.load because this is after default filter is set
   Player = require('entities.player')
+  Particle = require('entities.particle')
   SolidPlatform = require('entities.solid-platform')
   SideCheckingGate = require('entities.side-checking-gate')
   Level = require('entities.level')
+  EntityKiller = require('entities.entity-killer')
 
+  --
   love.graphics.setLineStyle('rough')
   love.window.setMode(640, 360)
   bump_world = bump.newWorld(64)
@@ -64,6 +72,7 @@ function love.load()
     tiny_world:addSystem(system)
   end
   tiny_world:addEntity(Player())
+  tiny_world:addEntity(EntityKiller())
   local level = Level()
   tiny_world:addEntity(level)
   tiny_world:addEntity(Level(level.x + level.width))

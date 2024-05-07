@@ -1,5 +1,6 @@
 ---@class SideCheckingGate
 ---@field hitbox Hitbox
+---@field crossed boolean
 local SideCheckingGate = class('SideCheckingGate')
 
 local SPRITES = {
