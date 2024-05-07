@@ -14,8 +14,7 @@ function CameraSystem:initialize(props)
     resizable = true,
   })
   self.push:resize(windowWidth, windowHeight)
-  self.push:setBorderColor(love.math.colorFromBytes(115, 239, 247))
-  self.push:setBorderColor(love.math.colorFromBytes(26, 28, 44))
+  self.push:setBorderColor(PALETTE.LIGHTEST)
   PubSub.subscribe('love.resize', function(data)
     self.push:resize(data[1], data[2])
   end)
@@ -30,7 +29,7 @@ function CameraSystem:postWrap(dt)
 end
 
 function CameraSystem:process(e, dt)
-  love.graphics.translate(0, 0)
+  love.graphics.translate(-e.x, -e.y + GAME_HEIGHT / 2)
   love.graphics.print('2024 spring game jam', 20, 20)
 end
 

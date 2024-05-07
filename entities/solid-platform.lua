@@ -7,13 +7,22 @@
 ---@field x number
 ---@field y number
 ---@field hitbox Hitbox
----@field verticies table
+---@field move_left boolean
+---@field is_solid boolean
 local SolidPlatform = class('SolidPlatform')
+
+local SPRITE = {
+  default = love.graphics.newImage('assets/solid-platform.png'),
+}
 
 function SolidPlatform:initialize(x, y)
   self.x, self.y = x, y
-  self.hitbox = { width = 100, height = 100 }
-  self.verticies = { 0, 0, 100, 0, 100, 100, 0, 100 }
+  self.move_left = true
+  self.hitbox = { width = 32, height = 32 }
+  self.is_solid = true
+  self.collisions_enabled = true
+  self.velocity_y = 0
+  self.sprite = SPRITE.default
 end
 
 return SolidPlatform

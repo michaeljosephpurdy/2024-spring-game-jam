@@ -19,38 +19,51 @@ local LevelVariant
 ---@type LevelVariant[]
 -- stylua: ignore start
 local POSSIBLE_VARIANTS = {{
- map={'         ',
-      '         ',
-      '     4   ',
-      'XXXXXXXXX'},
+ map={'XXXXXXXXXXXXXX',
+      '              ',
+      '              ',
+      '              ',
+      '              ',
+      '     #        ',
+      'XXXXXXXXXXXXXX'},
  },{
- map={'XXXXXXXXX',
-      '         ',
-      '         ',
-      '         '},
+ map={'XXXXXXXXXXXXXX',
+      '              ',
+      '              ',
+      '              ',
+      '              ',
+      '              ',
+      'XXXXXX  XXXXXX'},
  },
 }
 -- stylua: ignore end
 
-local SolidPlatform = require('entities.solid-platform')
-local SideCheckingGate = require('entities.side-checking-gate')
-
 function Level:initialize(x, y)
   self.x = x or 0
   self.y = y or 0
-  self.variant = POSSIBLE_VARIANTS[1]
-  self.width = 9 * 100
-  self.height = 4 * 100
+  local variant_index = love.math.random(1, #POSSIBLE_VARIANTS)
+  self.variant = POSSIBLE_VARIANTS[variant_index]
+  self.width = #self.variant.map[1] * 32
+  self.height = #self.variant.map * 32
+  self.move_left = true
+  self:parse_map()
+end
+
+---@private
+function Level:parse_map()
   ---@private
   self.level_contents = {}
-  -- parse map
   for row, rows in ipairs(self.variant.map) do
     for col = 1, #rows do
       local value = rows:sub(col, col)
+      local x = (col * 32) + self.x
+      local y = (row * 32) + self.y
       if value == 'X' then
-        table.insert(self.level_contents, SolidPlatform:new(col * 100, row * 100))
+        table.insert(self.level_contents, SolidPlatform(x, y))
+      elseif value == '#' then
+        table.insert(self.level_contents, SideCheckingGate(x, y))
       elseif tonumber(value) then
-        table.insert(self.level_contents, SideCheckingGate:new(col * 100, row * 100, tonumber(value)))
+        table.insert(self.level_contents, SideCheckingGate(x, y, tonumber(value)))
       end
     end
   end

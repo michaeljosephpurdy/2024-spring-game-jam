@@ -6,25 +6,25 @@ function CollisionDetectionSystem:initialize(props)
 end
 
 local function collision_filter(e1, e2)
-  if e1.is_player then
-    if e2.is_solid then
-      return 'slide'
-    end
+  if not e1.class or not e2.class then
     return 'cross'
   end
-  if e1.is_moving_door then
-    if e2.is_solid then
+  local player = e1 --[[@as Player]]
+
+  if e2.class == SolidPlatform then
+    return 'slide'
+  end
+
+  if e2.class == SideCheckingGate then
+    local other = e2 --[[@as SideCheckingGate]]
+    if other.sides == player.sides then
+      return 'cross'
+    else
       return 'slide'
     end
-    return nil
   end
-  if e1.is_arrow then
-    if e2.is_solid then
-      return 'touch'
-    end
-    return nil
-  end
-  return nil
+
+  --return 'slide'
 end
 
 function CollisionDetectionSystem:process(e, dt)
@@ -37,36 +37,36 @@ function CollisionDetectionSystem:process(e, dt)
     local col = cols[i]
     local collided = true
     if col.type == 'touch' then
-      e.velocity.x, e.velocity.y = 0, 0
+      e.velocity_x, e.velocity_y = 0, 0
     elseif col.type == 'slide' then
       if col.normal.x == 0 then
-        e.velocity.y = 0
+        e.velocity_y = 0
         if col.normal.y < 0 then
           e.on_ground = true
         end
       else
-        e.velocity.x = 0
+        e.velocity_x = 0
       end
     elseif col.type == 'onewayplatform' then
       if col.did_touch then
-        e.velocity.y = 0
+        e.velocity_y = 0
         e.on_ground = true
       else
         collided = false
       end
     elseif col.type == 'onewayplatformTouch' then
       if col.did_touch then
-        e.velocity.y = 0
+        e.velocity_y = 0
         e.on_ground = true
       else
         collided = false
       end
     elseif col.type == 'bounce' then
       if col.normal.x == 0 then
-        e.velocity.y = -e.velocity.y
+        e.velocity_y = -e.velocity_y
         e.on_ground = true
       else
-        e.velocity.x = -e.velocity.x
+        e.velocity_x = -e.velocity_x
       end
     end
 

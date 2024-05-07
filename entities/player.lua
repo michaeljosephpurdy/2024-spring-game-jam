@@ -2,11 +2,12 @@
 ---@field new function
 ---@field controllable boolean
 ---@field camera_follow boolean
----@field verticies table
 ---@field angle number
 ---@field last_action PlayerActions
 ---@field hitbox Hitbox
 ---@field collisions_enabled boolean
+---@field is_player boolean
+---@field is_affected_by_gravity boolean
 local Player = class('Player')
 
 ---@enum PlayerActions
@@ -18,29 +19,41 @@ local PlayerActions = {
   INCREMENT = 'INCREMENT',
 }
 
+local SPRITES = {
+  nil, --1
+  nil, --2
+  love.graphics.newImage('assets/player-3.png'), -- triangle
+  love.graphics.newImage('assets/player-4.png'), -- rectangle
+  love.graphics.newImage('assets/player-5.png'), -- pentagon
+  love.graphics.newImage('assets/player-6.png'), --- hexagon
+  love.graphics.newImage('assets/player-7.png'), --heptagon
+  love.graphics.newImage('assets/player-8.png'), --octagon
+}
 local SIDES = {
   nil, --1
   nil, --2
-  { 0, 100, 100, 100, 50, 0 }, -- triangle
-  { 0, 0, 100, 0, 100, 100, 0, 100 }, -- rectangle
-  { 0, 50, 50, 0, 100, 50, 66, 100, 33, 100 }, -- pentagon
-  { 25, 0, 75, 0, 100, 50, 75, 100, 25, 100, 0, 50 }, -- hexagon
-  { 50, 0, 80, 20, 100, 60, 75, 100, 25, 100, 0, 60, 20, 20 }, --heptagon
-  { 25, 0, 75, 0, 100, 25, 100, 75, 75, 100, 25, 100, 0, 75, 0, 25 }, --octagon
+  { 0, 1, 1, 1, 0.5, 0 }, -- triangle
+  { 0, 0, 1, 0, 1, 1, 0, 1 }, -- rectangle
+  { 0, 0.50, 0.50, 0, 1, 0.50, 0.66, 1, 0.33, 1 }, -- pentagon
+  { 0.25, 0, 0.75, 0, 1, 0.50, 0.75, 1, 0.25, 1, 0, 0.50 }, -- hexagon
+  { 0.50, 0, 0.80, 0.20, 1, 0.60, 0.75, 1, 0.25, 1, 0, 0.60, 0.20, 0.20 }, --heptagon
+  { 0.25, 0, 0.75, 0, 1, 0.25, 1, 0.75, 0.75, 1, 0.25, 1, 0, 0.75, 0, 0.25 }, --octagon
 }
 local LOWER_SIDE_LIMIT = 3
 local UPPER_SIDE_LIMIT = #SIDES
 
 function Player:initialize()
-  self.x, self.y = 40, 40
+  self.x, self.y = 40, 100
   self.velocity_x, self.velocity_y = 0, 0
   self.controllable = true
   self.camera_follow = true
   self.sides = 3
-  self.verticies = SIDES[self.sides]
   self.angle = 0
-  self.hitbox = { width = 100, height = 100 }
+  self.hitbox = { width = 32, height = 32 }
   self.collisions_enabled = true
+  self.is_affected_by_gravity = true
+  self.is_player = true
+  self.sprite = SPRITES[self.sides]
 end
 
 ---@private
@@ -88,7 +101,7 @@ function Player:decrement_sides()
   if self.sides < LOWER_SIDE_LIMIT then
     self.sides = LOWER_SIDE_LIMIT
   end
-  self.verticies = SIDES[self.sides]
+  self.sprite = SPRITES[self.sides]
 end
 
 --- increments count of side
@@ -102,7 +115,7 @@ function Player:increment_sides()
   if self.sides > UPPER_SIDE_LIMIT then
     self.sides = UPPER_SIDE_LIMIT
   end
-  self.verticies = SIDES[self.sides]
+  self.sprite = SPRITES[self.sides]
 end
 
 return Player

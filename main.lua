@@ -3,9 +3,6 @@ tiny = require('plugins.tiny-ecs')
 class = require('plugins.middleclass')
 bump = require('plugins.bump')
 
-Player = require('entities.player')
-Level = require('entities.level')
-
 GAME_WIDTH = 640
 GAME_HEIGHT = 360
 SIXTY_FPS = 60 / 1000
@@ -14,13 +11,22 @@ SYSTEMS_IN_ORDER = {
   require('systems.level-spawning-system'),
   require('systems.collision-registration-system'),
   require('systems.cooldown-system'),
+  require('systems.horizontal-movement-system'),
   require('systems.player-input-system'),
+  require('systems.gravity-system'),
   require('systems.collision-detection-system'),
+  require('systems.player-death-system'),
   require('systems.camera-system'),
-  require('systems.polygon-drawing-system'),
-  require('systems.side-count-printing-system'),
+  require('systems.sprite-drawing-system'),
+  require('systems.entity-cleanup-system'),
 }
 
+PALETTE = {
+  DARKEST = { love.math.colorFromBytes(27, 13, 53) },
+  DARK = { love.math.colorFromBytes(47, 28, 98) },
+  LIGHT = { love.math.colorFromBytes(86, 52, 130) },
+  LIGHTEST = { love.math.colorFromBytes(111, 93, 157) },
+}
 UPDATE_SYSTEMS = function(_, s)
   return not s.is_draw_system
 end
@@ -37,6 +43,12 @@ function love.load()
   end)
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   love.graphics.setDefaultFilter('nearest', 'nearest')
+  love.graphics.setBackgroundColor(PALETTE.LIGHTEST)
+  Player = require('entities.player')
+  SolidPlatform = require('entities.solid-platform')
+  SideCheckingGate = require('entities.side-checking-gate')
+  Level = require('entities.level')
+
   love.graphics.setLineStyle('rough')
   love.window.setMode(640, 360)
   bump_world = bump.newWorld(64)
@@ -51,8 +63,10 @@ function love.load()
     end
     tiny_world:addSystem(system)
   end
-  tiny_world:addEntity(Player:new())
-  tiny_world:addEntity(Level:new())
+  tiny_world:addEntity(Player())
+  local level = Level()
+  tiny_world:addEntity(level)
+  tiny_world:addEntity(Level(level.x + level.width))
   accumulator = 0
 end
 

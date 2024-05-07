@@ -11,6 +11,7 @@ function LevelSpawningSystem:onAdd(e)
   local level = e --[[@as Level]]
   local contents = level:get_contents()
   for _, entity in ipairs(contents) do
+    entity.parent = level
     self.tiny_world:addEntity(entity)
   end
 end
