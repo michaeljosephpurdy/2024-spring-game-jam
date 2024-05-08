@@ -73,9 +73,6 @@ function love.load()
   end
   tiny_world:addEntity(Player())
   tiny_world:addEntity(EntityKiller())
-  local level = Level()
-  tiny_world:addEntity(level)
-  tiny_world:addEntity(Level(level.x + level.width))
   accumulator = 0
 end
 
