@@ -11,7 +11,6 @@ function PlayerInputSystem:process(player, dt)
   local down = love.keyboard.isDown('down') or love.keyboard.isDown('s')
   local left = love.keyboard.isDown('left') or love.keyboard.isDown('a') or love.keyboard.isDown('z')
   local right = love.keyboard.isDown('right') or love.keyboard.isDown('d') or love.keyboard.isDown('x')
-  local both = left and right
 
   if up then
     player:jump()
@@ -19,8 +18,12 @@ function PlayerInputSystem:process(player, dt)
   end
 
   if down then
-    player:flip()
-    return
+    if player:flip() then
+      self.world:addEntity(FlipGravityEvent())
+      return
+    else
+      return
+    end
   end
 
   if left then

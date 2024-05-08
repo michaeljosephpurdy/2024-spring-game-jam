@@ -15,15 +15,15 @@ local SPRITES = {
 }
 
 function SideCheckingGate:initialize(x, y, sides)
-  self.x, self.y = x, y
-  self.move_left = true
   self.sides = sides or love.math.random(3, #SPRITES)
-  self.hitbox = { width = 32, height = 32 }
-  self.collisions_enabled = true
-  self.velocity_x = 0
-  self.velocity_y = 0
   local random_sprite_index = self.sides
   self.sprite = SPRITES[random_sprite_index]
+  local offset = 10
+  self.x, self.y = x - offset, y - offset
+  self.move_left = true
+  self.hitbox = { width = 40, height = 40 }
+  self.velocity_x = 0
+  self.velocity_y = 0
 end
 
 return SideCheckingGate

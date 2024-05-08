@@ -20,7 +20,6 @@ function SolidPlatform:initialize(x, y)
   self.move_left = true
   self.hitbox = { width = 32, height = 32 }
   self.is_solid = true
-  self.collisions_enabled = true
   self.velocity_y = 0
   self.sprite = SPRITE.default
 end

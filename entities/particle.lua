@@ -21,6 +21,8 @@ local Particle = class('Particle') --[[@as Particle]]
 function Particle:initialize(x, y, type)
   self.x, self.y = x, y
   local data = ParticleTypeToData[type]
+  if not data then
+  end
   for k, v in pairs(data) do
     self[k] = v
   end

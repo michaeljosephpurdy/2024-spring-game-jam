@@ -10,7 +10,7 @@ function EntityKiller:initialize()
   self.sprite = SPRITE
   self.is_killer = true
   self.hitbox = { width = 16, height = 320 }
-  self.collisions_enabled = true
+  self.collision_detection_enabled = true
   self.camera_follow = true
 end
 

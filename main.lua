@@ -55,6 +55,7 @@ function love.load()
   SideCheckingGate = require('entities.side-checking-gate')
   Level = require('entities.level')
   EntityKiller = require('entities.entity-killer')
+  FlipGravityEvent = require('entities.flip-gravity-event')
 
   --
   love.graphics.setLineStyle('rough')
@@ -66,7 +67,6 @@ function love.load()
     if system.initialize then
       system:initialize({
         bump_world = bump_world,
-        tiny_world = tiny_world,
       })
     end
     tiny_world:addSystem(system)

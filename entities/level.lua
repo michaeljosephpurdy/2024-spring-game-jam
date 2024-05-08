@@ -20,7 +20,7 @@ local LevelVariant
 -- stylua: ignore start
 local POSSIBLE_VARIANTS = {{
  map={'XXXXXXXXXXXXXX',
-      '              ',
+      '          #   ',
       '              ',
       '              ',
       '              ',

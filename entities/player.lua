@@ -4,9 +4,10 @@
 ---@field angle number
 ---@field last_action PlayerActions
 ---@field hitbox Hitbox
----@field collisions_enabled boolean
+---@field collision_detection_enabled boolean
 ---@field is_player boolean
 ---@field is_affected_by_gravity boolean
+---@field is_on_ground boolean
 local Player = class('Player') --[[@as Player]]
 
 ---@enum PlayerActions
@@ -38,11 +39,12 @@ function Player:initialize()
   self.sides = 3
   self.angle = 0
   self.hitbox = { width = 32, height = 32 }
-  self.collisions_enabled = true
+  self.collision_detection_enabled = true
   self.is_affected_by_gravity = true
   self.is_player = true
   self.sprite = SPRITES[self.sides]
   self.move_right = true
+  self.is_on_ground = true
 end
 
 ---@private
@@ -64,26 +66,31 @@ end
 --- flips gravity, but only if user didn't just flip it
 function Player:flip()
   if self.last_action == 'FLIP' then
-    return
+    return false
   end
   self.last_action = 'FLIP'
-  -- flip gravity
+  return true
 end
 
 --- jumps
 --- if user didn't just take that action
 function Player:jump()
-  if self.last_action == 'JUMP' then
-    return
+  if not self.is_on_ground then
+    return false
   end
+  if self.last_action == 'JUMP' then
+    return false
+  end
+  self.velocity_y = self.velocity_y - 500 * (self.gravity_direction or 1)
   self.last_action = 'JUMP'
+  return true
 end
 
 --- decrements count of sides
 --- if user didn't just take that action
 function Player:decrement_sides()
   if self.last_action == 'DECREMENT' then
-    return
+    return false
   end
   self.last_action = 'DECREMENT'
   self.sides = self.sides - 1
@@ -91,13 +98,14 @@ function Player:decrement_sides()
     self.sides = LOWER_SIDE_LIMIT
   end
   self.sprite = SPRITES[self.sides]
+  return true
 end
 
 --- increments count of side
 --- if user didn't just take that action
 function Player:increment_sides()
   if self.last_action == 'INCREMENT' then
-    return
+    return false
   end
   self.last_action = 'INCREMENT'
   self.sides = self.sides + 1
@@ -105,6 +113,7 @@ function Player:increment_sides()
     self.sides = UPPER_SIDE_LIMIT
   end
   self.sprite = SPRITES[self.sides]
+  return true
 end
 
 return Player
