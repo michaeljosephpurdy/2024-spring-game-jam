@@ -19,11 +19,12 @@ SYSTEMS_IN_ORDER = {
   require('systems.gravity-system'),
   require('systems.collision-detection-system'),
   require('systems.player-death-system'),
+  require('systems.entity-cleanup-system'),
   require('systems.camera-system'),
   require('systems.background-sprite-drawing-system'),
   require('systems.sprite-drawing-system'),
   require('systems.foreground-sprite-drawing-system'),
-  require('systems.entity-cleanup-system'),
+  require('systems.message-overlay-system'),
   --require('systems.debug-overlay-system'),
 }
 
@@ -63,6 +64,7 @@ function love.load()
 
   FlipGravityEvent = require('entities.flip-gravity-event')
   SpeedupEvent = require('entities.speedup-event')
+  MessageEvent = require('entities.message-event')
 
   --
   love.graphics.setLineStyle('rough')

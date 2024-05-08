@@ -46,6 +46,9 @@ function CollisionDetectionSystem:process(e, dt)
       for _ = 0, particle_count do
         self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
       end
+      if col.other.class == Player then
+        self.world:addEntity(MessageEvent('YOU DIED'))
+      end
     end
     -- any other entity below this will be player
     if col.other.crossed then
