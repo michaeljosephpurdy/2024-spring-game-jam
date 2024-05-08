@@ -21,7 +21,7 @@ SYSTEMS_IN_ORDER = {
   require('systems.camera-system'),
   require('systems.sprite-drawing-system'),
   require('systems.entity-cleanup-system'),
-  require('systems.debug-overlay-system'),
+  --require('systems.debug-overlay-system'),
 }
 
 PALETTE = {
