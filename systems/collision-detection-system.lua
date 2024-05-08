@@ -47,8 +47,13 @@ function CollisionDetectionSystem:process(e, dt)
         self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
       end
       if col.other.class == Player then
-        self.world:addEntity(MessageEvent('YOU DIED'))
+        self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY', 999))
+        self.world:removeEntity(e)
+        self.world:addEntity(GameOverEvent())
       end
+    end
+    if e.class ~= Player then
+      return
     end
     -- any other entity below this will be player
     if col.other.crossed then

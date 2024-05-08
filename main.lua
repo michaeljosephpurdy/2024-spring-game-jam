@@ -8,6 +8,7 @@ GAME_HEIGHT = 360
 SIXTY_FPS = 60 / 1000
 
 SYSTEMS_IN_ORDER = {
+  require('systems.game-over-system'),
   require('systems.level-spawning-system'),
   require('systems.collision-registration-system'),
   require('systems.cooldown-system'),
@@ -65,6 +66,7 @@ function love.load()
   FlipGravityEvent = require('entities.flip-gravity-event')
   SpeedupEvent = require('entities.speedup-event')
   MessageEvent = require('entities.message-event')
+  GameOverEvent = require('entities.game-over-event')
 
   --
   love.graphics.setLineStyle('rough')
@@ -81,7 +83,6 @@ function love.load()
     tiny_world:addSystem(system)
   end
   tiny_world:addEntity(Player())
-  tiny_world:addEntity(EntityKiller())
   accumulator = 0
 end
 

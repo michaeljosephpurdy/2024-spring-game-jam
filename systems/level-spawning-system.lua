@@ -2,6 +2,13 @@ local LevelSpawningSystem = tiny.processingSystem()
 LevelSpawningSystem.filter = tiny.requireAll('is_player')
 
 function LevelSpawningSystem:onAdd(player)
+  if self.level_one then
+    self.world:removeEntity(self.level_one)
+  end
+  if self.level_two then
+    self.world:removeEntity(self.level_two)
+  end
+  self.world:addEntity(EntityKiller())
   self.level_one = self:next_level(player)
   self.level_two = self:next_level(self.level_one)
 end

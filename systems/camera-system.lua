@@ -2,10 +2,6 @@ local CameraSystem = tiny.processingSystem()
 CameraSystem.filter = tiny.requireAll('camera_follow')
 CameraSystem.is_draw_system = true
 
-local function lerp(a, b, t)
-  return a + (b - a) * t
-end
-
 function CameraSystem:initialize(props)
   self.push = require('plugins.push')
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
