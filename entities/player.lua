@@ -8,6 +8,7 @@
 ---@field is_player boolean
 ---@field is_affected_by_gravity boolean
 ---@field is_on_ground boolean
+---@field particle_count number
 local Player = class('Player') --[[@as Player]]
 
 ---@enum PlayerActions
@@ -45,6 +46,8 @@ function Player:initialize()
   self.sprite = SPRITES[self.sides]
   self.move_right = true
   self.is_on_ground = true
+  self.particle_count = self.sides
+  self.gravity_direction = 1
 end
 
 ---@private
@@ -81,7 +84,7 @@ function Player:jump()
   if self.last_action == 'JUMP' then
     return false
   end
-  self.velocity_y = self.velocity_y - 500 * (self.gravity_direction or 1)
+  self.velocity_y = self.velocity_y - 500 * self.gravity_direction
   self.last_action = 'JUMP'
   return true
 end
@@ -98,6 +101,7 @@ function Player:decrement_sides()
     self.sides = LOWER_SIDE_LIMIT
   end
   self.sprite = SPRITES[self.sides]
+  self.particle_count = self.sides
   return true
 end
 
@@ -113,6 +117,7 @@ function Player:increment_sides()
     self.sides = UPPER_SIDE_LIMIT
   end
   self.sprite = SPRITES[self.sides]
+  self.particle_count = self.sides
   return true
 end
 

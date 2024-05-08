@@ -13,6 +13,7 @@ SYSTEMS_IN_ORDER = {
   require('systems.cooldown-system'),
   require('systems.left-movement-system'),
   require('systems.right-movement-system'),
+  require('systems.entity-movement-system'),
   require('systems.player-input-system'),
   require('systems.gravity-system'),
   require('systems.collision-detection-system'),

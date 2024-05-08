@@ -1,11 +1,11 @@
 local EntityCleanupSystem = tiny.processingSystem()
-EntityCleanupSystem.filter = tiny.requireAll('x')
+EntityCleanupSystem.filter = tiny.requireAll('time_to_live')
 
 function EntityCleanupSystem:process(e, dt)
-  if e.x > -300 then
-    return
+  e.time_to_live = e.time_to_live - dt
+  if e.time_to_live < 0 then
+    self.world:removeEntity(e)
   end
-  self.world:removeEntity(e)
 end
 
 return EntityCleanupSystem

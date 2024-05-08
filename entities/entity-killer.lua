@@ -12,6 +12,7 @@ function EntityKiller:initialize()
   self.hitbox = { width = 16, height = 320 }
   self.collision_detection_enabled = true
   self.camera_follow = true
+  self.gravity_direction = 1
 end
 
 return EntityKiller

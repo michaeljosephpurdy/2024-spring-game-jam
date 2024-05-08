@@ -43,8 +43,10 @@ function CollisionDetectionSystem:process(e, dt)
     local collided = true
     if e.class == EntityKiller and col.type == 'cross' then
       self.world:removeEntity(col.other)
-      -- Add particles for each killed entity
-      --self.world:addEntity(Particle(col.other.x, col.other.y, col.other.class.name))
+      local particle_count = col.other.particle_count or 3
+      for _ = 0, particle_count do
+        self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
+      end
     end
 
     if col.type == 'touch' then
