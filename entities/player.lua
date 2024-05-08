@@ -9,6 +9,7 @@
 ---@field is_affected_by_gravity boolean
 ---@field is_on_ground boolean
 ---@field particle_count number
+---@field speedup boolean
 local Player = class('Player') --[[@as Player]]
 
 ---@enum PlayerActions
@@ -48,6 +49,8 @@ function Player:initialize()
   self.is_on_ground = true
   self.particle_count = self.sides
   self.gravity_direction = 1
+  self.speedup = true
+  self.draw_foreground = true
 end
 
 ---@private
@@ -79,9 +82,6 @@ end
 --- if user didn't just take that action
 function Player:jump()
   if not self.is_on_ground then
-    return false
-  end
-  if self.last_action == 'JUMP' then
     return false
   end
   self.velocity_y = self.velocity_y - 500 * self.gravity_direction

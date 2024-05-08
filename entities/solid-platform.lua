@@ -22,6 +22,7 @@ function SolidPlatform:initialize(x, y)
   self.is_solid = true
   self.velocity_y = 0
   self.sprite = SPRITE.default
+  self.draw_background = true
 end
 
 return SolidPlatform

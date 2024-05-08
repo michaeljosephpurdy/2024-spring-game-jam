@@ -24,6 +24,7 @@ function SideCheckingGate:initialize(x, y, sides)
   self.hitbox = { width = 40, height = 40 }
   self.velocity_x = 0
   self.velocity_y = 0
+  self.draw_foreground = true
 end
 
 return SideCheckingGate

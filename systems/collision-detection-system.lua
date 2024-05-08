@@ -22,7 +22,6 @@ local function collision_filter(e1, e2)
       return 'cross'
     end
     if other.sides == player.sides then
-      other.crossed = true
       return 'cross'
     else
       return 'slide'
@@ -48,8 +47,17 @@ function CollisionDetectionSystem:process(e, dt)
         self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
       end
     end
+    -- any other entity below this will be player
+    if col.other.crossed then
+      return
+    end
 
-    if col.type == 'touch' then
+    if col.type == 'cross' then
+      col.other.crossed = true
+      if col.other.class == SpeedUpGate then
+        self.world:addEntity(SpeedupEvent())
+      end
+    elseif col.type == 'touch' then
       e.velocity_x, e.velocity_y = 0, 0
     elseif col.type == 'slide' then
       if col.normal.x == 0 then
@@ -62,13 +70,6 @@ function CollisionDetectionSystem:process(e, dt)
       else
         e.velocity_x = 0
       end
-      --elseif col.type == 'bounce' then
-      --if col.normal.x == 0 then
-      --e.velocity_y = -e.velocity_y
-      --e.is_on_ground = true
-      --else
-      --e.velocity_x = -e.velocity_x
-      --end
     end
     if e.on_collision and collided then
       e:on_collision(col)

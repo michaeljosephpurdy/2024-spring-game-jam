@@ -13,13 +13,16 @@ SYSTEMS_IN_ORDER = {
   require('systems.cooldown-system'),
   require('systems.left-movement-system'),
   require('systems.right-movement-system'),
-  require('systems.entity-movement-system'),
+  require('systems.speedup-system'),
   require('systems.player-input-system'),
+  require('systems.entity-movement-system'),
   require('systems.gravity-system'),
   require('systems.collision-detection-system'),
   require('systems.player-death-system'),
   require('systems.camera-system'),
+  require('systems.background-sprite-drawing-system'),
   require('systems.sprite-drawing-system'),
+  require('systems.foreground-sprite-drawing-system'),
   require('systems.entity-cleanup-system'),
   --require('systems.debug-overlay-system'),
 }
@@ -54,9 +57,12 @@ function love.load()
   Particle = require('entities.particle')
   SolidPlatform = require('entities.solid-platform')
   SideCheckingGate = require('entities.side-checking-gate')
+  SpeedUpGate = require('entities.speedup-gate')
   Level = require('entities.level')
   EntityKiller = require('entities.entity-killer')
+
   FlipGravityEvent = require('entities.flip-gravity-event')
+  SpeedupEvent = require('entities.speedup-event')
 
   --
   love.graphics.setLineStyle('rough')
