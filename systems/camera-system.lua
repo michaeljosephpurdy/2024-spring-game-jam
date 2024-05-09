@@ -25,7 +25,9 @@ function CameraSystem:postWrap(dt)
 end
 
 function CameraSystem:process(e, dt)
-  love.graphics.translate(-e.x + GAME_WIDTH / 8, 0)
+  if e.x then
+    love.graphics.translate(-e.x + GAME_WIDTH / 8, 0)
+  end
 end
 
 return CameraSystem

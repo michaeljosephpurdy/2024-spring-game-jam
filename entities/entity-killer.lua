@@ -7,7 +7,7 @@ function EntityKiller:initialize()
   self.y = 50
   self.velocity_y = 0
   self.move_right = true
-  self.sprite = SPRITE
+  --self.sprite = SPRITE
   self.is_killer = true
   self.hitbox = { width = 16, height = 320 }
   self.collision_detection_enabled = true

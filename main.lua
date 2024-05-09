@@ -9,7 +9,8 @@ SIXTY_FPS = 60 / 1000
 
 SYSTEMS_IN_ORDER = {
   require('systems.game-over-system'),
-  require('systems.level-spawning-system'),
+  require('systems.level-selection-system'),
+  require('systems.endless-level-spawning-system'),
   require('systems.collision-registration-system'),
   require('systems.cooldown-system'),
   require('systems.left-movement-system'),
@@ -18,6 +19,7 @@ SYSTEMS_IN_ORDER = {
   require('systems.player-input-system'),
   require('systems.entity-movement-system'),
   require('systems.gravity-system'),
+  require('systems.vertical-position-checking-system'),
   require('systems.collision-detection-system'),
   require('systems.player-death-system'),
   require('systems.entity-cleanup-system'),

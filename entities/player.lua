@@ -10,6 +10,7 @@
 ---@field is_on_ground boolean
 ---@field particle_count number
 ---@field speedup boolean
+---@field is_playing_endless boolean
 local Player = class('Player') --[[@as Player]]
 
 ---@enum PlayerActions
@@ -51,6 +52,7 @@ function Player:initialize()
   self.gravity_direction = 1
   self.speedup = true
   self.draw_foreground = true
+  self.is_playing_endless = true
 end
 
 ---@private
@@ -71,6 +73,9 @@ end
 
 --- flips gravity, but only if user didn't just flip it
 function Player:flip()
+  if not self.is_on_ground then
+    return false
+  end
   if self.last_action == 'FLIP' then
     return false
   end

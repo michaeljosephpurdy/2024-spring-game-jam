@@ -14,7 +14,7 @@ images:
 	aseprite -b --layer "6" assets/gate.aseprite --save-as assets/gate-6.png
 	aseprite -b --layer "7" assets/gate.aseprite --save-as assets/gate-7.png
 	aseprite -b --layer "8" assets/gate.aseprite --save-as assets/gate-8.png
-	aseprite -b --layer "speedup" assets/gate.aseprite --save-as assets/gate-speedup.png
+	aseprite -b assets/speedup-gate.aseprite --save-as assets/speedup-gate.png
 	aseprite -b --layer "solid" assets/platforms.aseprite --save-as assets/solid-platform.png
 	aseprite -b --layer "light" assets/pieces.aseprite --save-as assets/light-piece.png
 	aseprite -b --layer "dark" assets/pieces.aseprite --save-as assets/dark-piece.png

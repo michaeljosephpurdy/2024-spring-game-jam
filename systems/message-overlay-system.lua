@@ -13,7 +13,11 @@ function MessageOverlaySystem:process(e, dt)
   love.graphics.push()
   love.graphics.origin() -- Reset the state to the defaults.
   love.graphics.setColor(PALETTE.DARK)
-  drawCenteredText(0, 0, GAME_WIDTH, GAME_HEIGHT, e.message)
+  if e.x and e.y then
+    drawCenteredText(e.x, e.y, 0, 0, e.message)
+  else
+    drawCenteredText(0, 0, GAME_WIDTH, GAME_HEIGHT, e.message)
+  end
   love.graphics.pop()
 end
 

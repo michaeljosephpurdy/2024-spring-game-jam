@@ -1,7 +1,7 @@
-local LevelSpawningSystem = tiny.processingSystem()
-LevelSpawningSystem.filter = tiny.requireAll('is_player')
+local EndlessLevelSpawningSystem = tiny.processingSystem()
+EndlessLevelSpawningSystem.filter = tiny.requireAll('is_player', 'is_playing_endless')
 
-function LevelSpawningSystem:onAdd(player)
+function EndlessLevelSpawningSystem:onAdd(player)
   if self.level_one then
     self.world:removeEntity(self.level_one)
   end
@@ -13,7 +13,7 @@ function LevelSpawningSystem:onAdd(player)
   self.level_two = self:next_level(self.level_one)
 end
 
-function LevelSpawningSystem:next_level(current_level)
+function EndlessLevelSpawningSystem:next_level(current_level)
   local x = 0
   if current_level then
     x = current_level.x + (current_level.width or 0)
@@ -26,7 +26,7 @@ function LevelSpawningSystem:next_level(current_level)
   return level
 end
 
-function LevelSpawningSystem:process(e, dt)
+function EndlessLevelSpawningSystem:process(e, dt)
   if e.x > self.level_one.x + self.level_one.width then
     self.level_one = self:next_level(self.level_two)
   end
@@ -35,4 +35,4 @@ function LevelSpawningSystem:process(e, dt)
   end
 end
 
-return LevelSpawningSystem
+return EndlessLevelSpawningSystem

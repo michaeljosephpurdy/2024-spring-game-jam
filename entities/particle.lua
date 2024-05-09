@@ -36,6 +36,7 @@ function Particle:initialize(x, y, gravity_direction, type)
   self.velocity_y = self.velocity_y * (gravity_direction or -1)
   self.is_affected_by_gravity = true
   self.time_to_live = 1
+  self.draw_foreground = true
 end
 
 return Particle

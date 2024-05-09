@@ -48,7 +48,6 @@ function CollisionDetectionSystem:process(e, dt)
       end
       if col.other.class == Player then
         self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY', 999))
-        self.world:removeEntity(e)
         self.world:addEntity(GameOverEvent())
       end
     end
