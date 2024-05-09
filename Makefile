@@ -18,6 +18,7 @@ images:
 	aseprite -b --layer "solid" assets/platforms.aseprite --save-as assets/solid-platform.png
 	aseprite -b --layer "light" assets/pieces.aseprite --save-as assets/light-piece.png
 	aseprite -b --layer "dark" assets/pieces.aseprite --save-as assets/dark-piece.png
+	aseprite -b --layer "transparent" assets/pieces.aseprite --save-as assets/transparent-piece.png
 	aseprite -b assets/entity-killer.aseprite --save-as assets/entity-killer.png
 
 serve:

@@ -1,6 +1,7 @@
 local SPRITES = {
   LIGHT = love.graphics.newImage('assets/light-piece.png'),
   DARK = love.graphics.newImage('assets/dark-piece.png'),
+  TRANSPARENT = love.graphics.newImage('assets/transparent-piece.png'),
 }
 
 ---@class ParticleData
@@ -12,6 +13,11 @@ local ParticleTypeToData = {
   Player = {
     sprite = SPRITES.LIGHT,
     is_affected_by_gravity = true,
+  },
+  Decoration = {
+    sprite = SPRITES.TRANSPARENT,
+    is_affected_by_gravity = true,
+    time_to_live = 8,
   },
 }
 

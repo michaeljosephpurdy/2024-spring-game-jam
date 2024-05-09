@@ -37,15 +37,15 @@ function LevelSelectionSystem:onAdd(e)
     MenuOption(0, 0, 'Level 4', function() end),
     MenuOption(0, 0, 'Endless', function()
       self.world:clearEntities()
-      self.world:addEntity(Player())
+      self.world:addEntity(Player(true))
     end),
   }
   -- we'll take a second to link all of these menu options
   -- into a linked list, to easily navigate through the menu
   for i, option in ipairs(options) do
     option.level_selection = true
-    option.x = 40
-    option.y = i * 20
+    option.x = option.x + GAME_WIDTH / 2
+    option.y = option.y + (i * 20)
     option.previous = options[i - 1]
     option.next = options[i + 1]
     if i == 1 then
@@ -58,6 +58,12 @@ function LevelSelectionSystem:onAdd(e)
   options[1]:enable()
   for _, option in pairs(options) do
     self.world:addEntity(option)
+  end
+end
+
+function LevelSelectionSystem:update(dt)
+  if #self.entities > 3 then
+    self.world:addEntity(Particle(love.math.random(0, GAME_WIDTH), 0, 1, 'Decoration'))
   end
 end
 

@@ -6,6 +6,9 @@ bump = require('plugins.bump')
 GAME_WIDTH = 640
 GAME_HEIGHT = 360
 SIXTY_FPS = 60 / 1000
+GRAVITY = 20
+MAX_GRAVITY = 100
+JUMP_HEIGHT = 400
 
 SYSTEMS_IN_ORDER = {
   require('systems.game-over-system'),
@@ -82,20 +85,16 @@ function love.load()
     end
     tiny_world:addSystem(system)
   end
-  tiny_world:addEntity(LevelSelectionTriggerEvent())
-  --tiny_world:addEntity(Player())
-  accumulator = 0
+  --tiny_world:addEntity(LevelSelectionTriggerEvent())
+  tiny_world:addEntity(Player(true))
 end
 
 function love.update(dt)
-  accumulator = accumulator + dt
-  while accumulator >= SIXTY_FPS do
-    tiny_world:update(SIXTY_FPS, UPDATE_SYSTEMS)
-    accumulator = accumulator - SIXTY_FPS
-  end
+  tiny_world:update(dt, UPDATE_SYSTEMS)
 end
 
 function love.draw()
+  love.graphics.print(tostring(love.timer.getFPS(), 0, 0))
   local dt = love.timer.getDelta()
   tiny_world:update(dt, DRAW_SYSTEMS)
 end

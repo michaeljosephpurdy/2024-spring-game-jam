@@ -35,9 +35,10 @@ local SPRITES = {
 local LOWER_SIDE_LIMIT = 3
 local UPPER_SIDE_LIMIT = #SPRITES
 
-function Player:initialize()
+function Player:initialize(is_playing_endless)
   self.x, self.y = 40, 100
   self.velocity_x, self.velocity_y = 0, 0
+  self.jump_force = JUMP_HEIGHT
   self.controllable = true
   self.sides = 3
   self.angle = 0
@@ -52,7 +53,7 @@ function Player:initialize()
   self.gravity_direction = 1
   self.speedup = true
   self.draw_foreground = true
-  self.is_playing_endless = true
+  self.is_playing_endless = is_playing_endless
 end
 
 ---@private
@@ -89,7 +90,7 @@ function Player:jump()
   if not self.is_on_ground then
     return false
   end
-  self.velocity_y = self.velocity_y - 500 * self.gravity_direction
+  self.velocity_y = self.velocity_y - self.jump_force * self.gravity_direction
   self.last_action = 'JUMP'
   return true
 end
