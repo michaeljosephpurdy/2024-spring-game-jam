@@ -1,7 +1,7 @@
 local GameOverEvent = class('GameOverEvent')
+GameOverEvent.is_event = true
 
 function GameOverEvent:initialize()
-  self.is_event = true
   self.game_over = true
 end
 

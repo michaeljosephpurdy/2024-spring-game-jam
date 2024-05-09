@@ -22,13 +22,13 @@ SYSTEMS_IN_ORDER = {
   require('systems.vertical-position-checking-system'),
   require('systems.collision-detection-system'),
   require('systems.player-death-system'),
-  require('systems.entity-cleanup-system'),
   require('systems.camera-system'),
   require('systems.background-sprite-drawing-system'),
   require('systems.sprite-drawing-system'),
   require('systems.foreground-sprite-drawing-system'),
   require('systems.message-overlay-system'),
   --require('systems.debug-overlay-system'),
+  require('systems.entity-cleanup-system'),
 }
 
 PALETTE = {
@@ -45,12 +45,6 @@ DRAW_SYSTEMS = function(_, s)
 end
 
 function love.load()
-  PubSub.subscribe('keypress', function(k)
-    if k ~= 'escape' then
-      return
-    end
-    love.event.quit()
-  end)
   local windowWidth, windowHeight = love.window.getDesktopDimensions()
   love.graphics.setDefaultFilter('nearest', 'nearest')
   love.graphics.setBackgroundColor(PALETTE.LIGHTEST)
@@ -65,10 +59,14 @@ function love.load()
   Level = require('entities.level')
   EntityKiller = require('entities.entity-killer')
 
+  MenuOption = require('entities.menu-option')
+
   FlipGravityEvent = require('entities.flip-gravity-event')
   SpeedupEvent = require('entities.speedup-event')
   MessageEvent = require('entities.message-event')
   GameOverEvent = require('entities.game-over-event')
+  LevelSelectionTriggerEvent = require('entities.level-selection-trigger-event')
+  KeyReleaseEvent = require('entities.keyrelease-event')
 
   --
   love.graphics.setLineStyle('rough')
@@ -84,7 +82,8 @@ function love.load()
     end
     tiny_world:addSystem(system)
   end
-  tiny_world:addEntity(Player())
+  tiny_world:addEntity(LevelSelectionTriggerEvent())
+  --tiny_world:addEntity(Player())
   accumulator = 0
 end
 
@@ -106,7 +105,7 @@ function love.keypressed(k)
 end
 
 function love.keyreleased(k)
-  PubSub.publish('keyrelease', k)
+  tiny_world:addEntity(KeyReleaseEvent(k))
 end
 
 function love.resize(w, h)

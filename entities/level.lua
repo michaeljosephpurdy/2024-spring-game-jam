@@ -20,7 +20,9 @@ local LevelVariant
 -- stylua: ignore start
 local POSSIBLE_VARIANTS = {{
  map={'XXXXXXXXXXXXXX',
-      ' >        #   ',
+      ' >    *   #   ',
+      '              ',
+      '              ',
       '              ',
       '              ',
       '              ',
@@ -28,6 +30,8 @@ local POSSIBLE_VARIANTS = {{
       'XXXXXXXXXXXXXX'},
  },{
  map={'XXXXXXXXXXXXXX',
+      '              ',
+      '              ',
       '              ',
       '              ',
       '              ',
@@ -60,6 +64,8 @@ function Level:parse_map()
       local y = (row * 32) + self.y
       if value == 'X' then
         table.insert(self.level_contents, SolidPlatform(x, y))
+      elseif value == '*' then
+        --table.insert(self.level_contents, Spike(x, y))
       elseif value == '>' then
         table.insert(self.level_contents, SpeedUpGate(x, y))
       elseif value == '#' then
