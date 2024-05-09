@@ -45,7 +45,7 @@ function LevelSelectionSystem:onAdd(e)
   for i, option in ipairs(options) do
     option.level_selection = true
     option.x = option.x + GAME_WIDTH / 2
-    option.y = option.y + (i * 20)
+    option.y = option.y + GAME_HEIGHT / 2 + (i * 20)
     option.previous = options[i - 1]
     option.next = options[i + 1]
     if i == 1 then

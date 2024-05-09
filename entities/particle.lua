@@ -14,6 +14,10 @@ local ParticleTypeToData = {
     sprite = SPRITES.LIGHT,
     is_affected_by_gravity = true,
   },
+  Jump = {
+    sprite = SPRITES.TRANSPARENT,
+    is_affected_by_gravity = false,
+  },
   Decoration = {
     sprite = SPRITES.TRANSPARENT,
     is_affected_by_gravity = true,
@@ -31,18 +35,18 @@ local Particle = class('Particle') --[[@as Particle]]
 function Particle:initialize(x, y, gravity_direction, type)
   self.x, self.y = x, y
   self.sprite = SPRITES.DARK
+  self.is_affected_by_gravity = true
+  self.velocity_x = love.math.random(-200, 200)
+  self.velocity_y = love.math.random(200, 400)
+  self.velocity_y = self.velocity_y * (gravity_direction or -1)
+  self.time_to_live = 2
+  self.draw_foreground = true
   local data = ParticleTypeToData[type]
   if data then
     for k, v in pairs(data) do
       self[k] = v
     end
   end
-  self.velocity_x = love.math.random(-200, 200)
-  self.velocity_y = love.math.random(200, 400)
-  self.velocity_y = self.velocity_y * (gravity_direction or -1)
-  self.is_affected_by_gravity = true
-  self.time_to_live = 1
-  self.draw_foreground = true
 end
 
 return Particle

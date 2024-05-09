@@ -6,12 +6,13 @@ bump = require('plugins.bump')
 GAME_WIDTH = 640
 GAME_HEIGHT = 360
 SIXTY_FPS = 60 / 1000
-GRAVITY = 20
-MAX_GRAVITY = 100
+GRAVITY = 25
+MAX_GRAVITY = 800
 JUMP_HEIGHT = 400
 
 SYSTEMS_IN_ORDER = {
   require('systems.game-over-system'),
+  require('systems.score-keeping-system'),
   require('systems.level-selection-system'),
   require('systems.endless-level-spawning-system'),
   require('systems.collision-registration-system'),
@@ -70,6 +71,7 @@ function love.load()
   GameOverEvent = require('entities.game-over-event')
   LevelSelectionTriggerEvent = require('entities.level-selection-trigger-event')
   KeyReleaseEvent = require('entities.keyrelease-event')
+  ScreenShakeEvent = require('entities.screen-shake-event')
 
   --
   love.graphics.setLineStyle('rough')

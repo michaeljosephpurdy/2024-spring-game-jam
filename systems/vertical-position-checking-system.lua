@@ -5,7 +5,7 @@ function VerticalPositionCheckingSystem:process(e, dt)
   if e.y < -100 or e.y > GAME_HEIGHT + 100 then
     self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY\nPRESS escape FOR MENU', 999))
     self.world:removeEntity(e)
-    self.world:addEntity(GameOverEvent())
+    self.world:addEntity(GameOverEvent(e.is_playing_endless))
   end
 end
 

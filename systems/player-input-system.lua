@@ -13,7 +13,14 @@ function PlayerInputSystem:process(player, dt)
   local right = love.keyboard.isDown('right') or love.keyboard.isDown('d') or love.keyboard.isDown('x')
 
   if up then
-    player:jump()
+    local jumped = player:jump()
+    if jumped then
+      self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
+      self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
+      self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
+      self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
+      self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
+    end
     return
   end
 

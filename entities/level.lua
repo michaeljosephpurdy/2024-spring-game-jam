@@ -26,8 +26,8 @@ local POSSIBLE_VARIANTS = {{
       '              ',
       '              ',
       '              ',
-      '     3  >     ',
-      'XXXXXXXXXXXXXX'},
+      '              ',
+      'XX XX  XX   XX'},
  },{
  map={'XXXXXXXXXXXXXX',
       '              ',

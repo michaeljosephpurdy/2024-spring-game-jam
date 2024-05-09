@@ -42,11 +42,12 @@ function Player:initialize(is_playing_endless)
   self.controllable = true
   self.sides = 3
   self.angle = 0
-  self.hitbox = { width = 32, height = 32 }
+  self.hitbox = { width = 24, height = 24 }
   self.collision_detection_enabled = true
   self.is_affected_by_gravity = true
   self.is_player = true
   self.sprite = SPRITES[self.sides]
+  self.sprite_offset = { x = -3, y = -3 }
   self.move_right = true
   self.is_on_ground = true
   self.particle_count = self.sides
@@ -54,6 +55,8 @@ function Player:initialize(is_playing_endless)
   self.speedup = true
   self.draw_foreground = true
   self.is_playing_endless = is_playing_endless
+  self.screen_shake_magnitude = 0
+  self.screen_shake_duration = 0
 end
 
 ---@private
@@ -81,6 +84,8 @@ function Player:flip()
     return false
   end
   self.last_action = 'FLIP'
+  self.screen_shake_magnitude = 2
+  self.screen_shake_duration = 0.3
   return true
 end
 
@@ -92,7 +97,19 @@ function Player:jump()
   end
   self.velocity_y = self.velocity_y - self.jump_force * self.gravity_direction
   self.last_action = 'JUMP'
+  self.screen_shake_duration = 0.15
+  self.screen_shake_magnitude = 1
   return true
+end
+
+---
+---@return number magnitude
+---@return number duration
+function Player:get_screen_shake_params()
+  if self.is_on_ground then
+    return 0, 0
+  end
+  return self.screen_shake_magnitude, self.screen_shake_duration
 end
 
 --- decrements count of sides
