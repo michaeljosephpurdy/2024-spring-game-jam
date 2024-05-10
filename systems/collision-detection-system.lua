@@ -48,7 +48,7 @@ function CollisionDetectionSystem:process(e, dt)
         self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
       end
       if col.other.class == Player then
-        self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY\nPRESS escape FOR MENU', 999))
+        self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY\n PRESS escape FOR MENU', 999))
         self.world:addEntity(GameOverEvent(col.other.is_playing_endless))
       end
     end

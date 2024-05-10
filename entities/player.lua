@@ -47,7 +47,7 @@ function Player:initialize(is_playing_endless)
   self.is_affected_by_gravity = true
   self.is_player = true
   self.sprite = SPRITES[self.sides]
-  self.sprite_offset = { x = -3, y = -3 }
+  self.sprite_offset = { x = -4, y = -4 }
   self.move_right = true
   self.is_on_ground = true
   self.particle_count = self.sides
