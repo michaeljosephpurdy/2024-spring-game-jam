@@ -5,7 +5,8 @@ bump = require('plugins.bump')
 
 GAME_WIDTH = 640
 GAME_HEIGHT = 360
-SIXTY_FPS = 60 / 1000
+SIXTY_TWO_FPS = 1 / 62
+SIXTY_FPS = 1 / 60
 GRAVITY = 25
 MAX_GRAVITY = 800
 JUMP_HEIGHT = 400
@@ -89,10 +90,18 @@ function love.load()
   end
   --tiny_world:addEntity(LevelSelectionTriggerEvent())
   tiny_world:addEntity(Player(true))
+  accumulator = 0
 end
 
 function love.update(dt)
-  tiny_world:update(dt, UPDATE_SYSTEMS)
+  accumulator = accumulator + dt
+  while accumulator >= SIXTY_TWO_FPS do
+    tiny_world:update(SIXTY_FPS, UPDATE_SYSTEMS)
+    accumulator = accumulator - SIXTY_FPS
+    if accumulator < 0 then
+      accumulator = 0
+    end
+  end
 end
 
 function love.draw()
