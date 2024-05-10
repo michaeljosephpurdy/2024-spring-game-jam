@@ -22,7 +22,10 @@ function LevelSelectionSystem:onAdd(e)
         elseif next then
           menu_option.next:enable()
         elseif ok then
-          menu_option:on_click()
+          local success = menu_option:on_click()
+          if not success then
+            menu_option:enable()
+          end
         end
         return
       end
@@ -39,6 +42,7 @@ function LevelSelectionSystem:onAdd(e)
     MenuOption(0, 0, 'Endless', function()
       self.world:clearEntities()
       self.world:addEntity(Player(true))
+      return true
     end),
   }
   -- we'll take a second to link all of these menu options

@@ -5,7 +5,7 @@ function GameOverSystem:process(e, dt)
   if love.keyboard.isDown('space') then
     self.world:clearEntities()
     self.world:addEntity(Player(e.endless))
-  elseif love.keyboard.isDown('escape') then
+  elseif love.keyboard.isDown('return') then
     self.world:clearEntities()
     self.world:addEntity(LevelSelectionTriggerEvent())
   end
