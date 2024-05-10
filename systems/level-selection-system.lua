@@ -35,10 +35,10 @@ function LevelSelectionSystem:onAdd(e)
 
   self.world:addEntity(MessageEvent(' Lots of Sides\n\nby Mike Purdy', 999999, GAME_WIDTH / 2, GAME_HEIGHT / 4))
   local options = {
-    MenuOption(0, 0, 'Level 1', function() end),
-    MenuOption(0, 0, 'Level 2', function() end),
-    MenuOption(0, 0, 'Level 3', function() end),
-    MenuOption(0, 0, 'Level 4', function() end),
+    MenuOption(0, 0, 'Level 1 (not implemented)', function() end),
+    MenuOption(0, 0, 'Level 2 (not implemented)', function() end),
+    MenuOption(0, 0, 'Level 3 (not implemented)', function() end),
+    MenuOption(0, 0, 'Level 4 (not implemented)', function() end),
     MenuOption(0, 0, 'Endless', function()
       self.world:clearEntities()
       self.world:addEntity(Player(true))
