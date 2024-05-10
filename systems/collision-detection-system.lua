@@ -48,6 +48,7 @@ function CollisionDetectionSystem:process(e, dt)
         self.world:addEntity(Particle(col.other.x, col.other.y, col.other.gravity_direction, col.other.class.name))
       end
       if col.other.class == Player then
+        self.world:addEntity(Audio('death'))
         self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY\n PRESS escape FOR MENU', 999))
         self.world:addEntity(GameOverEvent(col.other.is_playing_endless))
       end
@@ -65,6 +66,7 @@ function CollisionDetectionSystem:process(e, dt)
       col.other.crossed = true
       if col.other.class == SpeedUpGate then
         self.world:addEntity(SpeedupEvent())
+        self.world:addEntity(Audio('speed'))
       end
     elseif col.type == 'slide' then
       if col.normal.x == 0 then
@@ -73,11 +75,13 @@ function CollisionDetectionSystem:process(e, dt)
         if e.gravity_direction > 0 and col.normal.y < 0 then
           if should_shake_screen then
             self.world:addEntity(ScreenShakeEvent(e:get_screen_shake_params()))
+            self.world:addEntity(Audio('landing'))
           end
           e.is_on_ground = true
         elseif e.gravity_direction < 0 and col.normal.y > 0 then
           if should_shake_screen then
             self.world:addEntity(ScreenShakeEvent(e:get_screen_shake_params()))
+            self.world:addEntity(Audio('landing'))
           end
           e.is_on_ground = true
         end

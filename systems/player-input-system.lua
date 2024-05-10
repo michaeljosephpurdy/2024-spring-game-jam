@@ -15,6 +15,7 @@ function PlayerInputSystem:process(player, dt)
   if up then
     local jumped = player:jump()
     if jumped then
+      self.world:addEntity(Audio('jump'))
       self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
       self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
       self.world:addEntity(Particle(player.x, player.y, 0, 'Jump'))
@@ -27,6 +28,7 @@ function PlayerInputSystem:process(player, dt)
   if down then
     if player:flip() then
       self.world:addEntity(FlipGravityEvent())
+      self.world:addEntity(Audio('flip'))
       return
     else
       return

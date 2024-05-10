@@ -1,4 +1,4 @@
-name = "2024-spring-game-jam"
+name = "lots-of-sides"
 default_targets = ["macos", "appimage", "win64", "lovejs"]
 build_directory = "makelove-build"
 
@@ -10,7 +10,7 @@ love_files = [
 ]
 
 [lovejs]
-title = "Untitled Game Jam Game"
+title = "Lots of Sides"
 memory = "200000000"  # starting memory of the webpage (default is 20 MB)
 
 [macos]
@@ -18,7 +18,7 @@ memory = "200000000"  # starting memory of the webpage (default is 20 MB)
 #icon_file = "macIcon.png"  # or macIcon.icns
 
 [macos.app_metadata]
-CFBundleName = "2024 spring Game Jam"
+CFBundleName = "Lots of Sides"
 CFBundleIdentifier = "dev.mikepurdy.2024springgamejam"
 NSHumanReadableCopyright = "Copyright © 2024 Mike Purdy"
 CFBundleShortVersionString = "0.0.1"
@@ -30,4 +30,4 @@ CompanyName = "Mike Purdy" # "LÖVE World Domination Inc."
 LegalCopyright = "Copyright © 2024 Mike Purdy"
 ProductName = "{name}" # "LÖVE"
 ProductVersion = "{version}"
-OriginalFilename = "purdy-spring-2024.exe" # "love.exe"
+OriginalFilename = "purdy-lots-of-sides.exe" # "love.exe"
