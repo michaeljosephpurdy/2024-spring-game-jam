@@ -1,4 +1,3 @@
-PubSub = require('plugins.pubsub')
 tiny = require('plugins.tiny-ecs')
 class = require('plugins.middleclass')
 bump = require('plugins.bump')
@@ -64,12 +63,13 @@ function love.load()
   SolidPlatform = require('entities.solid-platform')
   SideCheckingGate = require('entities.side-checking-gate')
   SpeedUpGate = require('entities.speedup-gate')
-  Level = require('entities.level')
+  EndlessLevel = require('entities.endless-level')
   EntityKiller = require('entities.entity-killer')
 
   MenuOption = require('entities.menu-option')
 
   FlipGravityEvent = require('entities.flip-gravity-event')
+  ScreenResizeEvent = require('entities.screen-resize-event')
   SpeedupEvent = require('entities.speedup-event')
   MessageEvent = require('entities.message-event')
   GameOverEvent = require('entities.game-over-event')
@@ -108,13 +108,9 @@ function love.update(dt)
 end
 
 function love.draw()
-  love.graphics.print(tostring(love.timer.getFPS(), 0, 0))
+  --love.graphics.print(tostring(love.timer.getFPS(), 0, 0))
   local dt = love.timer.getDelta()
   tiny_world:update(dt, DRAW_SYSTEMS)
-end
-
-function love.keypressed(k)
-  PubSub.publish('keypress', k)
 end
 
 function love.keyreleased(k)
@@ -122,5 +118,5 @@ function love.keyreleased(k)
 end
 
 function love.resize(w, h)
-  PubSub.publish('love.resize', { w, h })
+  tiny_world:addEntity(ScreenResizeEvent(w, h))
 end

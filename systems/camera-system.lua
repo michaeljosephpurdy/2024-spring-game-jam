@@ -1,5 +1,5 @@
 local CameraSystem = tiny.processingSystem()
-CameraSystem.filter = tiny.requireAny('camera_follow', 'screen_shake')
+CameraSystem.filter = tiny.requireAny('camera_follow', 'screen_shake', 'resize')
 CameraSystem.is_draw_system = true
 
 function CameraSystem:initialize(props)
@@ -11,9 +11,6 @@ function CameraSystem:initialize(props)
   })
   self.push:resize(windowWidth, windowHeight)
   self.push:setBorderColor(PALETTE.LIGHTEST)
-  PubSub.subscribe('love.resize', function(data)
-    self.push:resize(data[1], data[2])
-  end)
 end
 
 function CameraSystem:preWrap(dt)
@@ -22,6 +19,12 @@ end
 
 function CameraSystem:postWrap(dt)
   self.push:finish()
+end
+
+function CameraSystem:onAdd(e)
+  if e.resize and e.is_event then
+    self.push:resize(e.width, e.height)
+  end
 end
 
 function CameraSystem:process(e, dt)

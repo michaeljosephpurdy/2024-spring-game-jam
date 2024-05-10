@@ -1,4 +1,4 @@
----@class Level
+---@class EndlessLevel
 --- Spelunky had an interesting way of procedurally generating levels.
 --- Derek Yu and the team would create a selection of pre-fabricated chunks
 --- and then use those (at random/weighted random) to generate the overall level.
@@ -8,15 +8,15 @@
 --- a more simple approach.
 ---@field x number
 ---@field y number
----@field variant LevelVariant
-local Level = class('Level')
-Level.is_level = true
+---@field variant EndlessLevelVariant
+local EndlessLevel = class('EndlessLevel')
+EndlessLevel.is_level = true
 
----@class LevelVariant
+---@class EndlessLevelVariant
 ---@field map string[]
-local LevelVariant
+local EndlessLevelVariant
 
----@type LevelVariant[]
+---@type EndlessLevelVariant[]
 -- stylua: ignore start
 local POSSIBLE_VARIANTS = {{
  map={'X            X',
@@ -59,6 +59,16 @@ local POSSIBLE_VARIANTS = {{
       '        X     ',
       'XX      XXXXXX'},
  },{
+ map={'XX      XX777X',
+      '        X     ',
+      '        X     ',
+      '     XXXX     ',
+      ' XX6777>>     ',
+      '     XXXX     ',
+      '        X     ',
+      '        X     ',
+      'XX      XX777X'},
+ },{
  map={'XXXXXXXXXXXXXX',
       '        X     ',
       '        #     ',
@@ -72,7 +82,7 @@ local POSSIBLE_VARIANTS = {{
 }
 -- stylua: ignore end
 
-function Level:initialize(x, y)
+function EndlessLevel:initialize(x, y)
   self.x = x or 0
   self.y = y or 0
   local variant_index = love.math.random(1, #POSSIBLE_VARIANTS)
@@ -84,7 +94,7 @@ function Level:initialize(x, y)
 end
 
 ---@private
-function Level:parse_map()
+function EndlessLevel:parse_map()
   ---@private
   self.level_contents = {}
   for row, rows in ipairs(self.variant.map) do
@@ -109,8 +119,8 @@ end
 
 ---@return table[] bunch of data that level spawner will use to create
 ---colliders, polygons (to be rendered), etc.
-function Level:get_contents()
+function EndlessLevel:get_contents()
   return self.level_contents
 end
 
-return Level
+return EndlessLevel

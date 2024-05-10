@@ -6,6 +6,7 @@ function VerticalPositionCheckingSystem:process(e, dt)
     self.world:addEntity(MessageEvent('            YOU DIED\nPRESS spacebar TO RETRY\n PRESS escape FOR MENU', 999))
     self.world:removeEntity(e)
     self.world:addEntity(GameOverEvent(e.is_playing_endless))
+    self.world:addEntity(Audio('death'))
   end
 end
 
