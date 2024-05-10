@@ -30,6 +30,7 @@ function LevelSelectionSystem:onAdd(e)
     return
   end
 
+  self.world:addEntity(MessageEvent(' Lots of Sides\n\nby Mike Purdy', 999999, GAME_WIDTH / 2, GAME_HEIGHT / 4))
   local options = {
     MenuOption(0, 0, 'Level 1', function() end),
     MenuOption(0, 0, 'Level 2', function() end),

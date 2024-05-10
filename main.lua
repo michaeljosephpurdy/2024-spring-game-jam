@@ -12,6 +12,7 @@ MAX_GRAVITY = 800
 JUMP_HEIGHT = 400
 
 SYSTEMS_IN_ORDER = {
+  require('systems.audio-system'),
   require('systems.game-over-system'),
   require('systems.score-keeping-system'),
   require('systems.level-selection-system'),
@@ -56,6 +57,8 @@ function love.load()
 
   -- Import all entities
   -- this is happening in love.load because this is after default filter is set
+  Audio = require('entities.audio')
+
   Player = require('entities.player')
   Particle = require('entities.particle')
   SolidPlatform = require('entities.solid-platform')
@@ -88,8 +91,8 @@ function love.load()
     end
     tiny_world:addSystem(system)
   end
-  --tiny_world:addEntity(LevelSelectionTriggerEvent())
-  tiny_world:addEntity(Player(true))
+  tiny_world:addEntity(LevelSelectionTriggerEvent())
+  --tiny_world:addEntity(Player(true))
   accumulator = 0
 end
 
