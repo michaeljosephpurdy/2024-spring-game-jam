@@ -1,4 +1,4 @@
-name = "lots-of-sides"
+name = "2024-spring-game-jam"
 default_targets = ["macos", "appimage", "win64", "lovejs"]
 build_directory = "makelove-build"
 
